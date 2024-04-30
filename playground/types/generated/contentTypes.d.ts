@@ -658,38 +658,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginTokenRefresherToken extends Schema.CollectionType {
-  collectionName: 'tr_tokens';
-  info: {
-    singularName: 'token';
-    pluralName: 'tokens';
-    displayName: 'Token';
-    description: 'Token for external services';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    type: Attribute.Enumeration<['instagram']> & Attribute.Required;
-    token: Attribute.String & Attribute.Required;
-    expiresAt: Attribute.DateTime;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'plugin::token-refresher.token', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'plugin::token-refresher.token', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -708,7 +676,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::token-refresher.token': PluginTokenRefresherToken;
     }
   }
 }
