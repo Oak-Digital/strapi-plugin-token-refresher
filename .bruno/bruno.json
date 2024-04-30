@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Strapi plugin token refresher",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

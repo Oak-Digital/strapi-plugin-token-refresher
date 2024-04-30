@@ -1,9 +1,9 @@
 export default [
   {
     method: 'GET',
-    path: '/test',
+    path: '/token-refresher/token/:type',
     // name of the controller file & the method.
-    handler: 'controller.index',
+    handler: 'token.getToken',
     config: {
       policies: [],
     },

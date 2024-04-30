@@ -1,5 +1,5 @@
-import controller from './controller';
+import token from './token';
 
 export default {
-  controller,
+  token,
 };

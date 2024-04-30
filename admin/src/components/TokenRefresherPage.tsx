@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, HeaderLayout } from "@strapi/design-system";
+import { Box, BaseHeaderLayout, HeaderLayout } from "@strapi/design-system";
 import { TokenTypes } from "../lib/constants";
 
 type Props = {
@@ -10,11 +10,13 @@ const TokenRefresherPage: FC<Props> = ({
   type,
 }) => {
   return (
-    <Box>
-      <HeaderLayout>
-        Hello world
-      </HeaderLayout>
-    </Box>
+    <>
+      <Box>
+        <BaseHeaderLayout title={`${type} token`} subtitle="lol" />
+      </Box>
+
+
+    </>
   );
 };
 
