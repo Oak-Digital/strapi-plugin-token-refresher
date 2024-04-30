@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "strapi-plugin-token-refresher": {
-      "signature": "82f9214dbc74e18b34ddaa088dc50d65",
+      "signature": "6cff9b074592035c9070f84ffb939322",
       "link": true
     }
   }

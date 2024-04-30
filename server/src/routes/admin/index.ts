@@ -7,6 +7,7 @@ export default {
       // name of the controller file & the method.
       handler: 'token.getToken',
       config: {
+        auth: false,
         policies: [],
       },
     }

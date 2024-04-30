@@ -1,4 +1,5 @@
 import { Entity, Strapi } from "@strapi/strapi";
+import { TokenTypes } from "src/constants";
 
 const service = ({ strapi }: { strapi: Strapi }) => ({
   async findOne(id: Entity.ID) {
@@ -13,6 +14,18 @@ const service = ({ strapi }: { strapi: Strapi }) => ({
     });
 
     return updatedData;
+  },
+
+  async findOneByType(type: TokenTypes) {
+    const data = await strapi.entityService.findMany('plugin::token-refresher.token', {
+      filters: {
+        type,
+      },
+    });
+
+    const first = data[0];
+
+    return first;
   },
 });
 
