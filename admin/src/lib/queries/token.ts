@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { TokenTypes } from "../constants";
-import { PLUGIN_ID } from "src/pluginId";
+import { PLUGIN_ID } from "../../pluginId";
 import { tokenRequests } from "../api/token";
 
 export const useToken = (type: TokenTypes): UseQueryResult => {
