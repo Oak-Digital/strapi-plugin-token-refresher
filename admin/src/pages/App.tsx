@@ -19,7 +19,11 @@ const App = () => {
         <Switch>
           <Route path={`/plugins/${PLUGIN_ID}`} component={HomePage} exact />
           {TOKEN_TYPES.map((type) => (
-            <Route key={type} path={`/plugins/${PLUGIN_ID}/${type}`} component={() => <TokenRefresherPage type={type} key={type} />} />
+            <Route
+              key={type}
+              path={`/plugins/${PLUGIN_ID}/${type}`}
+              component={() => <TokenRefresherPage type={type} key={type} />}
+            />
           ))}
           <Route component={AnErrorOccurred} />
         </Switch>

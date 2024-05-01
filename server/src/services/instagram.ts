@@ -1,13 +1,18 @@
 import { Entity } from '@strapi/strapi';
 import axios from 'axios';
+import axiosHttpAdapter from 'axios/lib/adapters/http.js';
 import { getPluginService } from '../lib/plugin-service';
 import { z } from 'zod';
 
 const BASE_URL = 'https://graph.instagram.com';
 
+const client = axios.create({
+  adapter: axiosHttpAdapter,
+});
+
 const service = () => ({
   async refresh(token: string) {
-    const response = await axios.get(`${BASE_URL}/refresh_access_token`, {
+    const response = await client.get(`${BASE_URL}/refresh_access_token`, {
       params: {
         access_token: token,
         grant_type: 'ig_refresh_token',
@@ -26,7 +31,9 @@ const service = () => ({
 
     return {
       token: responseData.access_token,
-      expiresAt: responseData.expires_in ? new Date(Date.now() + responseData.expires_in * 1000) : null,
+      expiresAt: responseData.expires_in
+        ? new Date(Date.now() + responseData.expires_in * 1000)
+        : null,
     };
   },
 
@@ -36,10 +43,12 @@ const service = () => ({
 
     const refreshedToken = await this.refresh(entry.token);
 
-    await tokenService.update(id, {
+    const updated = await tokenService.update(id, {
       token: refreshedToken.token,
       expiresAt: refreshedToken.expiresAt,
     });
+
+    return updated;
   },
 });
 

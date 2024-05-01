@@ -9,7 +9,7 @@ const PluginNavigation = () => {
         <SubNavLink to={`/plugins/${PLUGIN_ID}/instagram`}>Instagram</SubNavLink>
       </SubNavSection>
     </SubNav>
-  )
+  );
 };
 
 export default PluginNavigation;

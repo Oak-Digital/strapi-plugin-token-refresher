@@ -1,2 +1,6 @@
 dist
 coverage
+playground/dist
+.bruno
+**/package
+**/.yalc

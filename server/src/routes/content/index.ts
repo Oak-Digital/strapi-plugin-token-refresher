@@ -9,6 +9,6 @@ export default {
       config: {
         policies: [],
       },
-    }
+    },
   ],
 };

@@ -1,15 +1,16 @@
-import { Entity, Strapi } from "@strapi/strapi";
-import { TokenTypes } from "src/constants";
+import { Entity, Strapi } from '@strapi/strapi';
+import { TokenTypes } from '../constants';
+import { PLUGIN_ID } from '../lib/plugin-id';
 
 const service = ({ strapi }: { strapi: Strapi }) => ({
   async findOne(id: Entity.ID) {
-    const data = await strapi.entityService.findOne('plugin::token-refresher.token', id);
+    const data = await strapi.entityService.findOne(`plugin::${PLUGIN_ID}.token`, id);
 
     return data;
   },
 
   async update(id: Entity.ID, data: Record<string, any>) {
-    const updatedData = await strapi.entityService.update('plugin::token-refresher.token', id, {
+    const updatedData = await strapi.entityService.update(`plugin::${PLUGIN_ID}.token`, id, {
       data,
     });
 
@@ -17,7 +18,7 @@ const service = ({ strapi }: { strapi: Strapi }) => ({
   },
 
   async findOneByType(type: TokenTypes) {
-    const data = await strapi.entityService.findMany('plugin::token-refresher.token', {
+    const data = await strapi.entityService.findMany(`plugin::${PLUGIN_ID}.token`, {
       filters: {
         type,
       },
@@ -26,6 +27,27 @@ const service = ({ strapi }: { strapi: Strapi }) => ({
     const first = data[0];
 
     return first;
+  },
+
+  async setTokenByType(type: TokenTypes, token: string) {
+    const tokenEntry = await this.findOneByType(type);
+
+    if (!tokenEntry) {
+      const created = await strapi.entityService.create(`plugin::${PLUGIN_ID}.token`, {
+        data: {
+          type,
+          token,
+        },
+      });
+
+      return created;
+    }
+
+    await this.update(tokenEntry.id, {
+      token,
+    });
+
+    return tokenEntry;
   },
 });
 

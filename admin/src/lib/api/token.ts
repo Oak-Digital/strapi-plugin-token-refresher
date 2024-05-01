@@ -1,18 +1,23 @@
-import axios from "axios";
-import { TokenTypes } from "../constants";
+import { TokenTypes } from '../constants';
+import { useFetchClient } from '@strapi/helper-plugin';
 
-export const tokenRequests = {
+export const getTokenRequests = (client: ReturnType<typeof useFetchClient>) => ({
   async get(type: TokenTypes) {
-    return axios.get(`/token-refresher/token/${type}`)
+    return client.get(`/token-refresher/token/${type}`);
   },
 
   async refresh(type: TokenTypes) {
-    return axios.post(`/token-refresher/refresh/${type}`)
+    return client.post(`/token-refresher/refresh/${type}`);
   },
 
   async set(type: TokenTypes, token: string) {
-    return axios.post(`/token-refresher/token/${type}`, {
+    return client.post(`/token-refresher/token/${type}`, {
       token,
     });
-  }
+  },
+});
+
+export const useTokenRequests = () => {
+  const client = useFetchClient();
+  return getTokenRequests(client);
 };

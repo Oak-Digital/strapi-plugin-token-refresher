@@ -7,11 +7,7 @@ import { getTranslation } from '../utils/getTranslation';
 const HomePage = () => {
   const { formatMessage } = useIntl();
 
-  return (
-    <Main>
-      Main page
-    </Main>
-  );
+  return <Main>Main page</Main>;
 };
 
 export { HomePage };
