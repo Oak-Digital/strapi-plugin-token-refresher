@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "strapi-plugin-token-refresher": {
-      "signature": "4321ab7f76ebf83c1ecb45d2e10ba16f",
-      "link": true
-    }
-  }
-}
