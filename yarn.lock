@@ -5281,6 +5281,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cron-validate@npm:^1.4.5":
+  version: 1.4.5
+  resolution: "cron-validate@npm:1.4.5"
+  dependencies:
+    yup: "npm:0.32.9"
+  checksum: 4c210bea21832269fd8e18e4c9e9d750b314da04bc475b8b58414a6421a4c86804a6f1a8b9eda6d357af4c43f627fa3ee372f6fbb99b849d2a9b2aef2917bddf
+  languageName: node
+  linkType: hard
+
 "cropperjs@npm:1.6.0":
   version: 1.6.0
   resolution: "cropperjs@npm:1.6.0"
@@ -12402,6 +12411,7 @@ __metadata:
     "@types/react-dom": "npm:^18.3.0"
     "@types/react-router-dom": "npm:^5.3.3"
     "@types/styled-components": "npm:^5.1.32"
+    cron-validate: "npm:^1.4.5"
     husky: "npm:^9.0.11"
     pinst: "npm:^3.0.0"
     prettier: "npm:^3.2.5"

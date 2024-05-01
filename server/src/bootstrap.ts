@@ -1,7 +1,9 @@
 import type { Strapi } from '@strapi/strapi';
+import { getPluginService } from './lib/plugin-service';
 
 const bootstrap = ({ strapi }: { strapi: Strapi }) => {
-  // bootstrap phase
+  const cronService = getPluginService('cron');
+  cronService.setupCronForAllTokens();
 };
 
 export default bootstrap;

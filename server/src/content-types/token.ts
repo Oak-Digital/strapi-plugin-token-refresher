@@ -35,6 +35,11 @@ const schema = {
       required: true,
     },
 
+    cron: {
+      type: 'string',
+      required: true,
+    },
+
     expiresAt: {
       type: 'datetime',
     },

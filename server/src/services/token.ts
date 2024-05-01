@@ -29,7 +29,13 @@ const service = ({ strapi }: { strapi: Strapi }) => ({
     return first;
   },
 
-  async setTokenByType(type: TokenTypes, token: string) {
+  async setTokenByType(
+    type: TokenTypes,
+    token: string,
+    other: {
+      cron?: string;
+    } = {}
+  ) {
     const tokenEntry = await this.findOneByType(type);
 
     if (!tokenEntry) {
@@ -37,6 +43,7 @@ const service = ({ strapi }: { strapi: Strapi }) => ({
         data: {
           type,
           token,
+          cron: other?.cron,
         },
       });
 
@@ -45,6 +52,7 @@ const service = ({ strapi }: { strapi: Strapi }) => ({
 
     await this.update(tokenEntry.id, {
       token,
+      cron: other?.cron,
     });
 
     return tokenEntry;

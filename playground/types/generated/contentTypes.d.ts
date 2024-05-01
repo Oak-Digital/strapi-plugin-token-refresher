@@ -680,6 +680,7 @@ export interface PluginTokenRefresherToken extends Schema.CollectionType {
   attributes: {
     type: Attribute.Enumeration<['instagram']> & Attribute.Required;
     token: Attribute.String & Attribute.Required;
+    cron: Attribute.String & Attribute.Required;
     expiresAt: Attribute.DateTime;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

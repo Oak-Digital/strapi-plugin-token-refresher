@@ -11,14 +11,8 @@ export const useToken = (type: TokenTypes) => {
     queryKey: ['plugin', PLUGIN_ID, type],
     queryFn: async () => {
       const response = await tokenRequests.get(type);
-      const schema = z.object({
-        token: z.string(),
-        type: z.string(),
-      });
-      const data = schema.parse(response.data);
-      return data;
+      return response;
     },
-    retry: false,
   });
 };
 
@@ -31,11 +25,14 @@ export const useSetToken = () => {
     {
       type: TokenTypes;
       token: string;
+      cron: string;
     }
   >({
     mutationKey: ['plugin', PLUGIN_ID, 'setToken'],
-    mutationFn: async ({ type, token }) => {
-      const response = await tokenRequests.set(type, token);
+    mutationFn: async ({ type, token, cron }) => {
+      const response = await tokenRequests.set(type, token, {
+        cron,
+      });
       return response.data;
     },
 

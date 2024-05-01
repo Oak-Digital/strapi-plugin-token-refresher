@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import {
   Box,
   BaseHeaderLayout,
@@ -15,7 +15,7 @@ import {
 } from '@strapi/design-system';
 import { TokenTypes } from '../lib/constants';
 import { useRefreshToken, useSetToken, useToken } from '../lib/queries/token';
-import { Formik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import { useNotification } from '@strapi/helper-plugin';
 
 type Props = {
@@ -45,6 +45,42 @@ const TokenRefresherPage: FC<Props> = ({ type }) => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      token: token?.token ?? '',
+      cron: token?.cron || '0 1 * * 0',
+    },
+    onSubmit: async (values) => {
+      console.log('submitting', values);
+      try {
+        await setToken.mutateAsync({
+          type,
+          token: values.token,
+          cron: values.cron,
+        });
+        notify({
+          type: 'success',
+          title: 'Token set',
+        });
+      } catch (e) {
+        notify({
+          type: 'warning',
+          title: 'Error',
+          message: 'Could not set token.',
+        });
+        console.error('Could not set token', e);
+      }
+    },
+  });
+
+  useEffect(() => {
+    console.log('token changed', token);
+    formik.setValues({
+      token: token?.token ?? '',
+      cron: token?.cron || '0 1 * * 0',
+    });
+  }, [token]);
+
   return (
     <>
       <Box>
@@ -56,13 +92,14 @@ const TokenRefresherPage: FC<Props> = ({ type }) => {
           <Loader />
         ) : (
           <Formik
-            initialValues={{ token: token?.token ?? '' }}
+            initialValues={{ token: token?.token ?? '', cron: token?.cron || '0 1 * * 0' }}
             onSubmit={async (values) => {
               console.log('submitting', values);
               try {
                 await setToken.mutateAsync({
                   type,
                   token: values.token,
+                  cron: values.cron,
                 });
                 notify({
                   type: 'success',
@@ -78,7 +115,7 @@ const TokenRefresherPage: FC<Props> = ({ type }) => {
               }
             }}
           >
-            {({ values, handleBlur, handleChange, handleSubmit, isSubmitting }) => {
+            {({ values, handleBlur, handleChange, handleSubmit, isSubmitting, setFieldValue }) => {
               return (
                 <form onSubmit={handleSubmit}>
                   <Flex direction="column" alignItems="flex-start" gap={2}>
@@ -91,6 +128,18 @@ const TokenRefresherPage: FC<Props> = ({ type }) => {
                           value={values.token}
                         />
                         <FieldHint />
+                        <FieldError />
+                      </Flex>
+                    </Field>
+                    <Field name="cron">
+                      <Flex direction="column" alignItems="flex-start" gap={1}>
+                        <FieldLabel>Refresh interval (cron)</FieldLabel>
+                        <FieldInput
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.cron}
+                        />
+                        <FieldHint></FieldHint>
                         <FieldError />
                       </Flex>
                     </Field>

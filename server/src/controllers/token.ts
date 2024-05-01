@@ -28,15 +28,18 @@ const tokenController = () => ({
 
     const schema = z.object({
       token: z.string(),
+      cron: z.string().nullish(),
     });
     const body = schema.safeParse(ctx.request.body);
     if (!body.success) {
       return ctx.throw(400, 'Invalid request body');
     }
-    const { token } = body.data;
+    const { token, cron } = body.data;
 
     const tokenService = getPluginService('token');
-    const tokenEntry = await tokenService.setTokenByType(type, token);
+    const tokenEntry = await tokenService.setTokenByType(type, token, {
+      cron,
+    });
     return tokenEntry;
   },
 
