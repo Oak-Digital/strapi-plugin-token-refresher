@@ -24,7 +24,7 @@ jobs:
           arguments: --impure
 
       - run: yarn install --frozen-lockfile
-      - run: yarn run build
+      - run: yarn run build --force
       - run: yarn run verify
       - run: yarn npm publish --access public
         env:
