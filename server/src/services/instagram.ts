@@ -27,7 +27,7 @@ const service = () => ({
 
     const responseData = responseScehma.parse(response.data);
 
-    console.log('Refreshed instagram token', responseData);
+    // console.log('Refreshed instagram token', responseData);
 
     return {
       token: responseData.access_token,

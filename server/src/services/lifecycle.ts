@@ -41,7 +41,7 @@ const lifecycleService = () => ({
       async afterUpdateMany(event) {},
 
       async afterDelete(event) {
-        console.log('afterDelete', event);
+        // console.log('afterDelete', event);
         const cronService = getPluginService('cron');
         const eventWithResult = withTokenResultSchema.safeParse(event);
         if (!eventWithResult.success) {
