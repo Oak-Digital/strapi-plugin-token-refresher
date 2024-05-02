@@ -4,6 +4,8 @@
 **/yalc.lock
 .yarn
 
+**/*.tsbuildinfo
+
 # dependencies
 node_modules
 .pnp
