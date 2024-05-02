@@ -24,15 +24,23 @@
         (system:
           let
             pkgs = nixpkgs.legacyPackages.${system};
+            packagesModule = {
+              packages = [ pkgs.yarn-berry ];
+            };
           in
           {
+            ci = devenv.lib.mkShell {
+              inherit inputs pkgs;
+              modules = [
+                packagesModule
+              ];
+            };
             default = devenv.lib.mkShell {
               inherit inputs pkgs;
               modules = [
+                packagesModule
                 {
                   # https://devenv.sh/reference/options/
-                  packages = [ pkgs.yarn-berry ];
-
                   scripts = {
                     strapi.exec = "yarn exec strapi $@";
                     install.exec = ''

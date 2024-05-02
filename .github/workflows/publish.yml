@@ -21,7 +21,7 @@ jobs:
           name: devenv
       - uses: nicknovitski/nix-develop@v1
         with:
-          arguments: --impure
+          arguments: '.#ci --impure'
 
       - run: yarn install --frozen-lockfile
       - run: yarn run build --force
