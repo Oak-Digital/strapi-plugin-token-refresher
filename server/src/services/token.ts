@@ -57,6 +57,16 @@ const service = ({ strapi }: { strapi: Strapi }) => ({
 
     return tokenEntry;
   },
+
+  async deleteTokenByType(type: TokenTypes) {
+    const tokenEntry = await this.findOneByType(type);
+
+    if (!tokenEntry) {
+      return;
+    }
+
+    await strapi.entityService.delete(`plugin::${PLUGIN_ID}.token`, tokenEntry.id);
+  },
 });
 
 export default service;

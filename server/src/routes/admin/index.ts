@@ -27,5 +27,13 @@ export default {
         policies: [],
       },
     },
+    {
+      method: 'DELETE',
+      path: '/token/:type',
+      handler: 'token.deleteToken',
+      config: {
+        policies: [],
+      },
+    },
   ],
 };

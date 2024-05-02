@@ -19,6 +19,10 @@ export const getTokenRequests = (client: ReturnType<typeof useFetchClient>) => (
     return client.post(`/token-refresher/refresh/${type}`);
   },
 
+  async delete(type: TokenTypes) {
+    return client.del(`/token-refresher/token/${type}`);
+  },
+
   async set(
     type: TokenTypes,
     token: string,

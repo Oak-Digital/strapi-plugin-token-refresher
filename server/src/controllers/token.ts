@@ -59,6 +59,18 @@ const tokenController = () => ({
       ctx.throw(500, 'Unable to refresh token');
     }
   },
+
+  async deleteToken(ctx: Context & { params: { type: string } }) {
+    const type = ctx.params.type;
+    if (!isTokenType(type)) {
+      return ctx.throw(400, 'Invalid token type');
+    }
+
+    const tokenService = getPluginService('token');
+    await tokenService.deleteTokenByType(type);
+
+    ctx.status = 204;
+  },
 });
 
 export default tokenController;

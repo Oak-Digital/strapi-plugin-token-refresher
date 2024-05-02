@@ -61,7 +61,31 @@ export const useRefreshToken = () => {
       return response.data;
     },
 
-    async onSuccess(data, type) {
+    async onSuccess(data, { type }) {
+      queryClient.invalidateQueries({
+        queryKey: ['plugin', PLUGIN_ID, type],
+        exact: true,
+      });
+    },
+  });
+};
+
+export const useDeleteToken = () => {
+  const queryClient = useQueryClient();
+  const tokenRequests = useTokenRequests();
+  return useMutation<
+    unknown,
+    Error,
+    {
+      type: TokenTypes;
+    }
+  >({
+    mutationKey: ['plugin', PLUGIN_ID, 'deleteToken'],
+    mutationFn: async ({ type }) => {
+      const response = await tokenRequests.delete(type);
+    },
+
+    async onSuccess(data, { type }) {
       await queryClient.invalidateQueries({
         queryKey: ['plugin', PLUGIN_ID, type],
         exact: true,
