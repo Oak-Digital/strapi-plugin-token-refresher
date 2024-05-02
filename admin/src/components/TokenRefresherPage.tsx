@@ -112,7 +112,6 @@ const TokenRefresherPage: FC<Props> = ({ type }) => {
       <Box>
         <BaseHeaderLayout
           title={`${type} token`}
-          subtitle="lol"
           secondaryAction={
             <Flex direction="row" gap={2}>
               <Button
