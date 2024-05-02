@@ -12,15 +12,14 @@ const cronService = ({ strapi }: { strapi: Strapi }) => ({
     if (!cronResult.isValid()) {
       throw new Error(`Invalid cron string: ${cronResult.getError().join(', ')}`);
     }
-    // strapi.cron.remove(name);
+    strapi.cron.remove(name);
     strapi.cron.add({
       [name]: {
         async task({ strapi }) {
           const refresherService = getPluginService('refresher');
-          strapi.log.info(`Refreshing token with id: ${id}...`);
+          strapi.log.debug(`Refreshing token with id: ${id}...`);
           try {
-            // TODO uncomment this line
-            // await refresherService.refreshEntry(id);
+            await refresherService.refreshEntry(id);
             strapi.log.info(`Refreshed token with id: ${id}`);
           } catch (error) {
             strapi.log.error(`Failed to refresh token with id: ${id}`);
@@ -32,6 +31,7 @@ const cronService = ({ strapi }: { strapi: Strapi }) => ({
         } as any,
       },
     });
+    strapi.log.debug(`Cron set for token with id: ${id}`);
   },
 
   removeCronForToken(id: Entity.ID) {
