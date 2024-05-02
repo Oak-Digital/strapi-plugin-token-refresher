@@ -37,7 +37,6 @@
   ],
   "scripts": {
     "release": "bumpp",
-    "postinstall": "husky",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
     "format": "prettier --write './**/*.{ts,tsx,js,jsx,json,md}'",
@@ -65,7 +64,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.32",
     "bumpp": "^9.4.1",
-    "husky": "^9.0.11",
     "pinst": "^3.0.0",
     "prettier": "^3.2.5",
     "react": "^18.3.1",
