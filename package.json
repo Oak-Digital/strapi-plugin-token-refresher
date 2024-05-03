@@ -1,6 +1,6 @@
 {
   "name": "@oak-digital/strapi-plugin-token-refresher",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Strapi plugin for refreshing tokens for external APIs, such as Instagram.",
   "keywords": [],
   "homepage": "https://github.com/Oak-Digital/strapi-plugin-token-refresher#readme",
